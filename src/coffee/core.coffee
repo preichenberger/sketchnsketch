@@ -76,24 +76,23 @@ Knob = React.createClass(
 
 Content = React.createClass(
   getInitialState: ->
-    images = [
-      'http://bit.ly/1FwzVuF'
-      'http://bit.ly/1FwzVuF'
-      'http://bit.ly/1FwzVuF'
-      'http://bit.ly/1FwzVuF'
-    ]
-    rows = 0 
- 
-    for i in [0..images.length]
-      if images.length <= i * i
-        rows = i
-        break
+    that = this
+    $.getJSON('/config.json', (data) ->
+      images = data['images']
+
+      for i in [0..images.length]
+        if images.length <= i * i
+          rows = i
+          break
+
+      that.setState({ images: images, rows: rows })
+    )
 
     return {
       width: 0
       height: 0
-      rows: rows
-      images: images
+      rows: 0
+      images: []
       imageReady: false
     }
 
