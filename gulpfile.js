@@ -10,6 +10,7 @@ var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var path = require('path');
 var tar = require('gulp-tar');
+var uglify = require('gulp-uglify');
 
 var pjson= require('./package.json');
 
@@ -62,7 +63,7 @@ gulp.task('js', function() {
     .pipe(cjsx({ bare: true }))
     .on('error', gutil.log)
     .pipe(concat('application.min.js'))
-    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(uglify())
     .pipe(gulp.dest('./public/js/'));
 });
 
