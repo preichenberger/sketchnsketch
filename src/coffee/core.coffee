@@ -77,7 +77,8 @@ Knob = React.createClass(
 Content = React.createClass(
   getInitialState: ->
     that = this
-    $.getJSON('/config.json', (data) ->
+    configURL = 'https://github.com/lateisha/sketch-n-sketch-config/blob/master/config.json'
+    $.getJSON(configURL, (data) ->
       images = data['images']
 
       for i in [0..images.length]
