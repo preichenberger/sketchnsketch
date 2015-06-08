@@ -165,7 +165,7 @@ Content = React.createClass(
 App = React.createClass(
   getInitialState: ->
     return {
-      touches: {}
+      intervalId: null
       keys: {}
       ready: false
       horizontalPos: 0 
@@ -225,23 +225,20 @@ App = React.createClass(
   enable: ->
     that = this 
     increment = 15 
+    tickRate = 30
+    acceptedKeys = [37, 38, 39, 40, 65, 68, 83, 87]
 
     that.setState({ ready: true })
     $('.instructions').css('opacity', '1')
 
-    $(document).on('keydown', (e) ->
+    tick = () ->
       keys = that.state.keys
-      keys[e.which] = true
-      that.setState({ keys: keys })
-
       if keys[37] || keys[65]
         # move cursor left and turn left on left
-        e.preventDefault()
         that.update('horizontal', -1 * increment)
 
       if keys[39] || keys[68]
         # move cursor right and turn right on left
-        e.preventDefault()
         that.update('horizontal', increment)
 
       if keys[40] || keys[83]
@@ -250,16 +247,42 @@ App = React.createClass(
 
       if keys[38] || keys[87]
         # move cursor down and turn right on right
-        e.preventDefault()
         that.update('vertical', -1 * increment)
-    )
+
+    $(document).on('keydown', (e) ->
+      keys = that.state.keys
+      for k in acceptedKeys
+        if e.which == k
+          e.preventDefault()
+          keys[e.which] = true
+          that.setState({ keys: keys })
+
+          break
+
+      for k of that.state.keys
+        if k
+          if !that.state.intervalId
+            that.setState({ intervalId: setInterval(tick, tickRate) })
+    
+          break      
+    ) 
 
     $(document).on('keyup', (e) ->
       keys = that.state.keys
+      if keys[e.which]
+        e.preventDefault()
       delete keys[e.which]
-
       that.setState({ keys: keys })
+
+      for k in keys
+        if k
+          return
+
+      clearInterval(that.state.intervalId)
+      that.setState({ intervalId: null })
     )
+
+    
 
   render: ->
     pos = [this.state.horizontalPos, this.state.verticalPos]
