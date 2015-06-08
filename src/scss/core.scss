@@ -176,7 +176,7 @@ body {
       @include border-bottom-radius(50%);
       @include border-left-radius(50%); 
 
-      @include transition(all 0.3s linear);
+      @include transition(all 0.1s linear);
     }
 
     $sketch-control-inner-size: $sketch-control-size - 20;
