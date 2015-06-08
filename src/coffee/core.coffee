@@ -77,7 +77,7 @@ Knob = React.createClass(
 Content = React.createClass(
   getInitialState: ->
     that = this
-    configURL = 'https://github.com/lateisha/sketch-n-sketch-config/blob/master/config.json'
+    configURL = 'https://dl.dropboxusercontent.com/u/40538233/config.json'
     $.getJSON(configURL, (data) ->
       images = data['images']
 
