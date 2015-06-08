@@ -1,0 +1,16 @@
+{
+  "name": "sketchnsketch",
+  "version": "0.0.1",
+  "dependencies": {
+    "jade": "*"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-bower": "^0.0.10",
+    "gulp-cjsx": "^3.0.0",
+    "gulp-jade": "^1.0.1",
+    "gulp-less": "^3.0.3",
+    "gulp-sass": "^2.0.1",
+    "gulp-util": "^3.0.5"
+  }
+}

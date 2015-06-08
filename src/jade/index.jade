@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    script(src="lib/react/react-with-addons.min.js")
+    script(src="lib/jquery/dist/jquery.min.js")
+    link(href='http://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet" type="text/css" href="css/core.css")
+    title Sketch N Sketch
+  body
+    .container
+      .stripe.instructions
+        h3
+          | Press WASD or 
+          i.fa.fa-chevron-up
+          i.fa.fa-chevron-down
+          i.fa.fa-chevron-left
+          i.fa.fa-chevron-right 
+          | to view sketch3s
+      #app
+      script(src="js/core.js")
+      .stripe
+        h5
+          | This site is not affiliated with the Ohio Art Company, but I want to thank them for the childhood memories and project inspiration - 
+          a(href="https://twitter.com/lateisha" target="_blank") @lateisha

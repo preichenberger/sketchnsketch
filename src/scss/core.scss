@@ -1,0 +1,229 @@
+@import "bootstrap";
+@import "bourbon";
+
+// bootstrap
+$header-font-weight: 700;
+
+$sketch-color: #930B1B;
+
+$sketch-border-radius: 25px;
+$sketch-border-size: 20%;
+
+$sketch-control-size: 80px;
+$sketch-control-color: #DDD8E0;
+
+$sketch-content-border-size: 7vw;
+$sketch-content-size: 69%;
+$sketch-content-color: #D8D8D8;
+
+$sketch-text-color: #D59840;
+$sketch-padding: 20px;
+
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+body {
+  font-family: "Cabin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #595959;
+}
+
+.container {
+  margin: 0;
+  
+  @media (min-width: $screen-sm-min) {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  @include background-image(
+    linear-gradient(left top, #EBE242 0%, #EBE242 50%, #00BADD 50.1%, #00BADD 100% ));
+}
+
+.stripe {
+  @media (min-width: $screen-md-min) {
+    margin: $sketch-padding * 12;
+    margin-top: $sketch-padding;
+    margin-bottom: 0;
+  }
+}
+
+.instructions {
+  @include transition(all 1s);
+  opacity: 0;
+  text-align: center;
+  display: none;
+  @media (min-width: $screen-lg-min) {
+    text-align: right;
+    display: block;
+  }
+}
+
+#app {
+  height: 80%;
+}
+
+.sketch {
+  text-align: center;
+  margin-top: $sketch-padding;
+  @media (min-width: $screen-md-min) {
+    margin: $sketch-padding * 12;
+    margin-bottom: 0;
+    margin-top: $sketch-padding;
+  }
+  height: 100%;
+
+  background-color: $sketch-color;
+  @include border-top-radius($sketch-border-radius);
+  @include border-right-radius($sketch-border-radius);
+  @include border-bottom-radius($sketch-border-radius);
+  @include border-left-radius($sketch-border-radius); 
+
+  .sketch-logo {
+    text-align: center;
+    color: $sketch-text-color;
+    padding-top: $sketch-padding;
+    padding-bottom: $sketch-padding;
+    img {
+      height: $sketch-padding * 1.5;
+    }
+
+    @media (min-width: $screen-sm-min) {
+      display: block;
+    }
+  }
+
+  .sketch-intro {
+    @media (max-width: $screen-xs-max) {
+      & > * {
+        font-size: $font-size-base;
+      }
+    }
+
+    @include transition(all 0.5s);
+    padding-top: $sketch-padding;
+    padding-left: $sketch-padding;
+    padding-right: $sketch-padding;
+    @media (min-width: $screen-sm-min) {
+      padding-top: $sketch-padding * 3;
+    }
+
+    &.sketch-intro-enter {
+      display: none;
+      padding: 0;
+    }
+
+    &.sketch-intro-leave {
+      opacity: 1;
+    }
+
+    &.sketch-intro-leave-active {
+      opacity: 0;
+    }
+  }
+
+  .sketch-content {
+    overflow: hidden;
+    height: 300px; 
+    @media (min-width: $screen-sm-min) {
+      height: $sketch-content-size;
+    }
+    background-color: $sketch-content-color;
+    margin-left: $sketch-content-border-size;
+    margin-right: $sketch-content-border-size;
+    box-shadow: inset 0 0 10px #000000;
+
+    @include border-top-radius($sketch-border-radius);
+    @include border-right-radius($sketch-border-radius);
+    @include border-bottom-radius($sketch-border-radius);
+    @include border-left-radius($sketch-border-radius); 
+
+    text-align: center;
+    
+    .helper {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    img { 
+      vertical-align: middle;
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    .sketch-image {
+      display: inline-block;
+      float: left;
+    }
+  }
+
+  .sketch-controls {
+    padding: $sketch-padding;
+    padding-top: $sketch-padding;
+
+    & > div {
+      height: $sketch-control-size;
+      width: $sketch-control-size;
+      background-color: $sketch-control-color;
+      box-shadow: 0 0 10px #000;
+      @include border-top-radius(50%);
+      @include border-right-radius(50%);
+      @include border-bottom-radius(50%);
+      @include border-left-radius(50%); 
+
+      @include transition(all 0.3s linear);
+    }
+
+    $sketch-control-inner-size: $sketch-control-size - 20;
+    $sketch-control-dot-size: 10px;
+
+    .sketch-controls-inner {
+      position: relative;
+      box-shadow: inset 0 0 5px #000;
+      height: $sketch-control-inner-size;
+      width: $sketch-control-inner-size;
+      left: ($sketch-control-size - $sketch-control-inner-size) / 2;
+      top: ($sketch-control-size - $sketch-control-inner-size) / 2;
+
+      @include border-top-radius(50%);
+      @include border-right-radius(50%);
+      @include border-bottom-radius(50%);
+      @include border-left-radius(50%); 
+    }
+ 
+    .sketch-controls-indicator {
+      position: absolute;
+      height: ($sketch-control-inner-size - $sketch-control-dot-size) / 2;
+      width: 2px;
+      background-color: lighten(#000, 45%);
+      left: ($sketch-control-inner-size - 2) / 2;
+    }
+ 
+    .sketch-controls-dot {
+      position: absolute;
+      height: $sketch-control-dot-size;
+      width: $sketch-control-dot-size;
+      box-shadow: inset 0 0 5px #000;
+      left: ($sketch-control-inner-size - $sketch-control-dot-size) / 2;
+      top: ($sketch-control-inner-size - $sketch-control-dot-size) / 2;
+
+      @include border-top-radius(50%);
+      @include border-right-radius(50%);
+      @include border-bottom-radius(50%);
+      @include border-left-radius(50%); 
+    }
+
+    .sketch-controls-left {
+      float: left;
+    }
+    .sketch-controls-right {
+      float: right;
+    }
+
+    @include clearfix;
+  }
+}
