@@ -3,10 +3,15 @@ var concat = require('gulp-concat');
 var cjsx = require('gulp-cjsx');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var gzip = require('gulp-gzip');
 var jade = require('gulp-jade');
 var merge = require('merge-stream');
+var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var path = require('path');
+var tar = require('gulp-tar');
+
+var pjson= require('./package.json');
 
 if (process.env.NODE_ENV != 'development' &&
   process.env.NODE_ENV !== undefined) {
@@ -23,6 +28,7 @@ gulp.task('default', [
   'images',
   'jade',
   'js',
+  'readme',
   'vendorjs',
   'watch'
 ]);
@@ -31,6 +37,13 @@ gulp.task('bower', function() {
   return bower()
     .on('error', gutil.log)
     .pipe(gulp.dest(bowerDir));
+});
+
+gulp.task('build', function() {
+  gulp.src('./public/**/*')
+    .pipe(tar('v' + pjson.version + '.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest('./public')); 
 });
 
 gulp.task('vendorjs', function() {
@@ -49,6 +62,7 @@ gulp.task('js', function() {
     .pipe(cjsx({ bare: true }))
     .on('error', gutil.log)
     .pipe(concat('application.min.js'))
+    .pipe(minifyCss({compatibility: 'ie8'}))
     .pipe(gulp.dest('./public/js/'));
 });
 
@@ -103,10 +117,16 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./public/'));
 });
 
+gulp.task('readme', function() {
+  gulp.src('./README.md')
+    .pipe(gulp.dest('./public/'));
+});
+
 gulp.task('watch', function() {
   gulp.watch('./src/coffee/**/*.coffee', ['js']);
   gulp.watch('./src/jade/**/*.jade', ['jade']);
   gulp.watch('./src/scss/**/*.scss', ['css']);
   gulp.watch('./images/**/*', ['images']);
+  gulp.watch('./README.md', ['readme']);
 });
 
